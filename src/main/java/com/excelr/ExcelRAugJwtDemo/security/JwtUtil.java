@@ -19,7 +19,8 @@ import jakarta.annotation.PostConstruct;
 public class JwtUtil {
 
     //private final String SECRET_KEY = "viratkohli_viratkohli_viratkohli_123456";
-
+	//private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+	
     	@Value("${jwt.secret}")
     	public String SECRET_KEY;
 
@@ -30,7 +31,7 @@ public class JwtUtil {
     		this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     	}
     	
-    //private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -70,7 +71,7 @@ public class JwtUtil {
     	myClaims.put("mentor", "Smith");
     	
         return Jwts.builder()
-                .setClaims(myClaims)
+                .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
